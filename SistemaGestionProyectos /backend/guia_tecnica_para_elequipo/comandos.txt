@@ -1,0 +1,8 @@
+# Levantar el backend en modo desarrollo
+npm run start:dev
+http://localhost:3000/api
+
+
+# Ver la documentación completa del código (Compodoc)
+npm run compodoc
+http://localhost:8081
