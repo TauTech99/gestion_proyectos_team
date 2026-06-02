@@ -14,16 +14,6 @@ export class Cliente {
     @Column({ type: 'enum', enum: EstadosClientesEnum })
     estado!: EstadosClientesEnum
 
-    // MI PARTE EXTRA:
-    @Column({ type: 'varchar', nullable: true })
-    email!: string | null;
-
-    @Column({ type: 'varchar', nullable: true })
-    phone!: string | null;
-
-    @Column({ type: 'varchar', nullable: true })
-    contactPerson!: string | null;
-
     @OneToMany(() => Proyecto, (proyecto) => proyecto.cliente)
     proyectos!: Proyecto[]
 
