@@ -1,0 +1,253 @@
+:host {
+    display: block;
+}
+
+.proyecto-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 1rem 1.25rem;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 1.25rem;
+}
+
+.proyecto-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 8rem;
+}
+
+.field-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.field-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.field-value-muted {
+    color: var(--text-muted);
+    font-style: italic;
+    font-weight: 500;
+}
+
+.page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* ============ Estados de carga / error ============ */
+
+.kanban-estado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-height: 16rem;
+    color: var(--text-muted);
+}
+
+.kanban-estado-icon {
+    font-size: 2.5rem;
+    color: var(--danger);
+}
+
+/* ============ Tablero ============ */
+
+.kanban-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-items: start;
+}
+
+.kanban-col {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.kanban-col-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border);
+    background-color: var(--surface-alt);
+}
+
+.kanban-col-header .material-symbols-outlined {
+    font-size: 1.25rem;
+}
+
+.kanban-col-title {
+    flex: 1;
+}
+
+.kanban-count {
+    min-width: 1.75rem;
+    text-align: center;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background-color: var(--border);
+    color: var(--text);
+}
+
+.kanban-col-header.estado-pendiente {
+    color: var(--info);
+    border-bottom-color: var(--info);
+}
+
+.kanban-col-header.estado-finalizada {
+    color: var(--success);
+    border-bottom-color: var(--success);
+}
+
+.kanban-col-header.estado-baja {
+    color: var(--danger);
+    border-bottom-color: var(--danger);
+}
+
+.kanban-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    min-height: 8rem;
+    transition: background-color 0.2s ease;
+}
+
+.kanban-list.cdk-drop-list-dragging {
+    background-color: var(--surface-alt);
+}
+
+.kanban-empty {
+    margin: 0;
+    padding: 1.5rem 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* ============ Cards ============ */
+
+.kanban-card {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 0.9rem;
+    background-color: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    cursor: grab;
+}
+
+.kanban-card:active {
+    cursor: grabbing;
+}
+
+.kanban-card.estado-pendiente {
+    border-left-color: var(--info);
+}
+
+.kanban-card.estado-finalizada {
+    border-left-color: var(--success);
+}
+
+.kanban-card.estado-baja {
+    border-left-color: var(--danger);
+}
+
+.kanban-card-icon {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.kanban-card.estado-pendiente .kanban-card-icon {
+    color: var(--info);
+}
+
+.kanban-card.estado-finalizada .kanban-card-icon {
+    color: var(--success);
+}
+
+.kanban-card.estado-baja .kanban-card-icon {
+    color: var(--danger);
+}
+
+.kanban-card-desc {
+    flex: 1;
+    font-size: 0.95rem;
+    color: var(--text);
+    word-break: break-word;
+}
+
+.kanban-card.guardando {
+    opacity: 0.6;
+    cursor: progress;
+}
+
+.kanban-card-spin {
+    color: var(--primary);
+    animation: kanban-spin 0.9s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes kanban-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============ Drag & drop (CDK) ============ */
+
+.cdk-drag-preview {
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-md);
+    opacity: 0.95;
+}
+
+.cdk-drag-placeholder {
+    opacity: 0.4;
+    border: 1px dashed var(--border-strong);
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.cdk-drag-animating {
+    transition: transform 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.kanban-list.cdk-drop-list-dragging .kanban-card:not(.cdk-drag-placeholder) {
+    transition: transform 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* ============ Responsive ============ */
+
+@media (max-width: 900px) {
+    .kanban-board {
+        grid-template-columns: 1fr;
+    }
+}

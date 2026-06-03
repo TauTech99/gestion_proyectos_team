@@ -1,0 +1,226 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+@import "@ng-select/ng-select/themes/default.theme.css";
+
+:root {
+    color-scheme: dark;
+
+    /* Fondos y superficies (Midnight & Amber) */
+    --midnight:       #0D0D1A;
+    --surface:        #1A1A2E;
+    --surface-alt:    #22223C;
+    --border:         #2A2A45;
+    --border-strong:  #3A3A5C;
+
+    /* Texto */
+    --text:           #F4F4F7;
+    --text-muted:     #A1A1B5;
+    --text-invert:    #0D0D1A;
+
+    /* Acento principal (ámbar) */
+    --primary:        #F59E0B;
+    --primary-hover:  #FBBF24;
+    --primary-active: #D97706;
+    --accent:         #FCD34D;
+
+    /* Semánticos */
+    --info:           #60A5FA;
+    --success:        #4ADE80;
+    --warning:        #FACC15;
+    --danger:         #FB7185;
+    --epic:           #C084FC;
+
+    /* Tipografía */
+    --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+    /* Espacio y radios */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+
+    /* Sombras (suaves, para superficies oscuras) */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.55);
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+body {
+    background-color: var(--midnight);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+    background-color: var(--primary);
+    color: var(--text-invert);
+}
+
+/* Scrollbar oscuro coherente con el tema */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) var(--midnight);
+}
+
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--midnight);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--border-strong);
+    border-radius: 6px;
+    border: 2px solid var(--midnight);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary);
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+    user-select: none;
+}
+
+.p-dialog {
+    margin: 1rem;
+    max-width: calc(100vw - 2rem);
+}
+
+/* ============ Overrides ng-select para dark mode ============ */
+
+.ng-select .ng-select-container {
+    background-color: var(--surface-alt);
+    border-color: var(--border);
+    color: var(--text);
+    min-height: 36px;
+    border-radius: var(--radius-sm);
+}
+
+.ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary);
+}
+
+.ng-select .ng-select-container .ng-value-container .ng-input > input {
+    color: var(--text);
+}
+
+.ng-select .ng-select-container .ng-value-container .ng-placeholder {
+    color: var(--text-muted);
+}
+
+.ng-select .ng-arrow-wrapper .ng-arrow {
+    border-color: var(--text-muted) transparent transparent;
+}
+
+.ng-select.ng-select-opened > .ng-select-container .ng-arrow {
+    border-color: transparent transparent var(--text-muted);
+}
+
+.ng-select .ng-clear-wrapper .ng-clear {
+    color: var(--text-muted);
+}
+
+.ng-select .ng-clear-wrapper:hover .ng-clear {
+    color: var(--danger);
+}
+
+.ng-dropdown-panel {
+    background-color: var(--surface);
+    border-color: var(--border);
+    color: var(--text);
+    box-shadow: var(--shadow-md);
+}
+
+.ng-dropdown-panel.ng-select-bottom {
+    border-top-color: var(--border);
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+    background-color: transparent;
+    color: var(--text);
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+    background-color: var(--surface-alt);
+    color: var(--text);
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected.ng-option-marked {
+    background-color: rgba(245, 158, 11, 0.16);
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-disabled {
+    color: var(--text-muted);
+}
+
+/* ============ Tablas responsive (apiladas en móvil) ============ */
+
+@media (max-width: 640px) {
+    /* Quita el ancho mínimo que forzaba scroll horizontal */
+    #tabla .p-datatable-table {
+        min-width: 0 !important;
+    }
+
+    /* Oculta la cabecera: cada fila pasa a ser una tarjeta con etiquetas */
+    #tabla .p-datatable-thead {
+        display: none;
+    }
+
+    #tabla .p-datatable-tbody > tr {
+        display: block;
+        margin-bottom: 0.75rem;
+        padding: 0.5rem 0.875rem;
+        background-color: var(--surface-alt);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+    }
+
+    #tabla .p-datatable-tbody > tr > td {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        width: auto !important;
+        padding: 0.45rem 0;
+        border: none;
+        text-align: right;
+    }
+
+    #tabla .p-datatable-tbody > tr > td:not(:last-child) {
+        border-bottom: 1px solid var(--border);
+    }
+
+    /* Etiqueta de la columna a la izquierda de cada celda */
+    #tabla .p-datatable-tbody > tr > td[data-label]::before {
+        content: attr(data-label);
+        flex-shrink: 0;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text-muted);
+        text-align: left;
+    }
+
+    /* La celda de acciones alinea los botones a la derecha */
+    #tabla .p-datatable-tbody > tr > td.celda-acciones {
+        justify-content: flex-end;
+    }
+}

@@ -1,0 +1,17 @@
+npm install -g @angular/cli
+
+ng new frontend---- NO HACE FALTA HACERLO
+
+cd frontend
+
+npm install primeng @primeuix/themes
+
+npm install @ng-select/ng-select
+
+npm install -g @compodoc/compodoc
+
+npm install primeicons
+
+npm install chart.js
+
+npm install @angular/cdk

@@ -1,0 +1,132 @@
+<app-template [titulo]="'Tareas (Kanban)'">
+    <section class="proyecto-card">
+        <div class="proyecto-field">
+            <span class="field-label">Proyecto</span>
+            <span class="field-value">{{ proyecto()?.nombre }}</span>
+        </div>
+        @if (proyecto()?.cliente) {
+            <div class="proyecto-field">
+                <span class="field-label">Cliente</span>
+                <span class="field-value">{{ proyecto()?.cliente }}</span>
+            </div>
+        } @else {
+            <div class="proyecto-field">
+                <span class="field-label">Cliente</span>
+                <span class="field-value field-value-muted">Interno</span>
+            </div>
+        }
+        <div class="proyecto-field">
+            <span class="field-label">Estado</span>
+            <span class="field-value">{{ proyecto()?.estado }}</span>
+        </div>
+        <div class="proyecto-field">
+            <span class="field-label">Fecha fin</span>
+            @if (proyecto()?.fechaFin) {
+                <span class="field-value">{{ proyecto()?.fechaFin | date:'dd/MM/yyyy':'UTC' }}</span>
+            } @else {
+                <span class="field-value field-value-muted">Sin fecha definida</span>
+            }
+        </div>
+    </section>
+
+    <div class="page-actions">
+        <p-button icon="pi pi-list" label="Vista tabla" severity="secondary" (click)="irATabla()"></p-button>
+        <p-button icon="pi pi-plus" label="Crear Tarea" (click)="crearTarea()"></p-button>
+    </div>
+
+    @if (cargando()) {
+        <div class="kanban-estado">
+            <p-progressSpinner styleClass="kanban-spinner" strokeWidth="4"></p-progressSpinner>
+            <span>Cargando tareas...</span>
+        </div>
+    } @else if (error()) {
+        <div class="kanban-estado">
+            <span class="material-symbols-outlined kanban-estado-icon">error</span>
+            <span>No se pudieron cargar las tareas.</span>
+            <p-button label="Reintentar" icon="pi pi-refresh" (click)="cargarProyecto()"></p-button>
+        </div>
+    } @else {
+        <div class="kanban-board" cdkDropListGroup>
+            <div class="kanban-col">
+                <header class="kanban-col-header estado-pendiente">
+                    <span class="material-symbols-outlined">{{ iconoEstado(EstadosTareasEnum.PENDIENTE) }}</span>
+                    <span class="kanban-col-title">Pendiente</span>
+                    <span class="kanban-count">{{ pendientes().length }}</span>
+                </header>
+                <div class="kanban-list" cdkDropList [cdkDropListData]="pendientes()"
+                    (cdkDropListDropped)="drop($event, EstadosTareasEnum.PENDIENTE)">
+                    @for (tarea of pendientes(); track tarea.id) {
+                        <div class="kanban-card estado-pendiente" [class.guardando]="estaGuardando(tarea.id)" cdkDrag
+                            [cdkDragDisabled]="estaGuardando(tarea.id)">
+                            <span class="material-symbols-outlined kanban-card-icon">{{ iconoEstado(tarea.estado) }}</span>
+                            <span class="kanban-card-desc">{{ tarea.descripcion }}</span>
+                            @if (estaGuardando(tarea.id)) {
+                                <span class="material-symbols-outlined kanban-card-spin">progress_activity</span>
+                            } @else {
+                                <p-button icon="pi pi-pencil" severity="secondary" [text]="true" [rounded]="true"
+                                    pTooltip="Editar tarea" (click)="editarTarea(tarea)"></p-button>
+                            }
+                        </div>
+                    } @empty {
+                        <p class="kanban-empty">Sin tareas</p>
+                    }
+                </div>
+            </div>
+
+            <div class="kanban-col">
+                <header class="kanban-col-header estado-finalizada">
+                    <span class="material-symbols-outlined">{{ iconoEstado(EstadosTareasEnum.FINALIZADA) }}</span>
+                    <span class="kanban-col-title">Finalizada</span>
+                    <span class="kanban-count">{{ finalizadas().length }}</span>
+                </header>
+                <div class="kanban-list" cdkDropList [cdkDropListData]="finalizadas()"
+                    (cdkDropListDropped)="drop($event, EstadosTareasEnum.FINALIZADA)">
+                    @for (tarea of finalizadas(); track tarea.id) {
+                        <div class="kanban-card estado-finalizada" [class.guardando]="estaGuardando(tarea.id)" cdkDrag
+                            [cdkDragDisabled]="estaGuardando(tarea.id)">
+                            <span class="material-symbols-outlined kanban-card-icon">{{ iconoEstado(tarea.estado) }}</span>
+                            <span class="kanban-card-desc">{{ tarea.descripcion }}</span>
+                            @if (estaGuardando(tarea.id)) {
+                                <span class="material-symbols-outlined kanban-card-spin">progress_activity</span>
+                            } @else {
+                                <p-button icon="pi pi-pencil" severity="secondary" [text]="true" [rounded]="true"
+                                    pTooltip="Editar tarea" (click)="editarTarea(tarea)"></p-button>
+                            }
+                        </div>
+                    } @empty {
+                        <p class="kanban-empty">Sin tareas</p>
+                    }
+                </div>
+            </div>
+
+            <div class="kanban-col">
+                <header class="kanban-col-header estado-baja">
+                    <span class="material-symbols-outlined">{{ iconoEstado(EstadosTareasEnum.BAJA) }}</span>
+                    <span class="kanban-col-title">Baja</span>
+                    <span class="kanban-count">{{ bajas().length }}</span>
+                </header>
+                <div class="kanban-list" cdkDropList [cdkDropListData]="bajas()"
+                    (cdkDropListDropped)="drop($event, EstadosTareasEnum.BAJA)">
+                    @for (tarea of bajas(); track tarea.id) {
+                        <div class="kanban-card estado-baja" [class.guardando]="estaGuardando(tarea.id)" cdkDrag
+                            [cdkDragDisabled]="estaGuardando(tarea.id)">
+                            <span class="material-symbols-outlined kanban-card-icon">{{ iconoEstado(tarea.estado) }}</span>
+                            <span class="kanban-card-desc">{{ tarea.descripcion }}</span>
+                            @if (estaGuardando(tarea.id)) {
+                                <span class="material-symbols-outlined kanban-card-spin">progress_activity</span>
+                            } @else {
+                                <p-button icon="pi pi-pencil" severity="secondary" [text]="true" [rounded]="true"
+                                    pTooltip="Editar tarea" (click)="editarTarea(tarea)"></p-button>
+                            }
+                        </div>
+                    } @empty {
+                        <p class="kanban-empty">Sin tareas</p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    <p-confirmdialog></p-confirmdialog>
+</app-template>
+<app-gestion-tarea [(visible)]="dialogVisible" [idProyecto]="idProyecto()"
+    [(tareaSeleccionada)]="tareaSeleccionada"></app-gestion-tarea>

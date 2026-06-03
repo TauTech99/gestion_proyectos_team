@@ -1,0 +1,73 @@
+<app-template [titulo]="'Tareas'">
+    <section class="proyecto-card">
+        <div class="proyecto-field">
+            <span class="field-label">Proyecto</span>
+            <span class="field-value">{{ proyecto()?.nombre }}</span>
+        </div>
+        @if (proyecto()?.cliente) {
+            <div class="proyecto-field">
+                <span class="field-label">Cliente</span>
+                <span class="field-value">{{ proyecto()?.cliente }}</span>
+            </div>
+        } @else {
+            <div class="proyecto-field">
+                <span class="field-label">Cliente</span>
+                <span class="field-value field-value-muted">Interno</span>
+            </div>
+        }
+        <div class="proyecto-field">
+            <span class="field-label">Estado</span>
+            <span class="field-value">{{ proyecto()?.estado }}</span>
+        </div>
+        <div class="proyecto-field">
+            <span class="field-label">Fecha fin</span>
+            @if (proyecto()?.fechaFin) {
+                <span class="field-value">{{ proyecto()?.fechaFin | date:'dd/MM/yyyy':'UTC' }}</span>
+            } @else {
+                <span class="field-value field-value-muted">Sin fecha definida</span>
+            }
+        </div>
+    </section>
+
+    <div class="page-actions">
+        <p-button icon="pi pi-th-large" label="Vista Kanban" severity="secondary" (click)="irAKanban()"></p-button>
+        <p-button icon="pi pi-download" label="Exportar CSV" severity="secondary" (click)="exportar(dt)"></p-button>
+        <p-button id="boton-crear-tarea" icon="pi pi-plus" label="Crear Tarea" (click)="crearTarea()"></p-button>
+    </div>
+
+    <p-table #dt id="tabla" [value]="tareas()" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true"
+        scrollHeight="50vh" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20, 50]"
+        [globalFilterFields]="['descripcion']">
+        <ng-template #caption>
+            <div class="tabla-filtros">
+                <input pInputText type="text" placeholder="Buscar por descripción"
+                    (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+                <p-select [options]="estados" placeholder="Filtrar por estado" [showClear]="true"
+                    (onChange)="dt.filter($event.value, 'estado', 'equals')" appendTo="body"></p-select>
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="descripcion">Nombre <p-sortIcon field="descripcion"></p-sortIcon></th>
+                <th pSortableColumn="estado">Estado <p-sortIcon field="estado"></p-sortIcon></th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-tarea>
+            <tr>
+                <td data-label="Nombre">{{ tarea.descripcion }}</td>
+                <td data-label="Estado">{{ tarea.estado }}</td>
+                <td data-label="Acciones" class="celda-acciones">
+                    <p-button icon="pi pi-pencil" pTooltip="Editar Tarea" (click)="editarTarea(tarea)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template #emptymessage>
+            <tr>
+                <td colspan="4">No se encontraron tareas.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</app-template>
+<app-gestion-tarea [(visible)]="dialogVisible" [idProyecto]="idProyecto()"
+    [(tareaSeleccionada)]="tareaSeleccionada"></app-gestion-tarea>
