@@ -1,0 +1,56 @@
+<app-template [titulo]="'Clientes'">
+    <div class="page-actions">
+        <p-button icon="pi pi-download" label="Exportar CSV" severity="secondary" (click)="exportar(dt)"></p-button>
+        <p-button id="boton-crear-cliente" icon="pi pi-plus" label="Crear Cliente" (click)="crearCliente()"></p-button>
+    </div>
+    <p-table #dt id="tabla" [value]="clientes()" [tableStyle]="{ 'min-width': '40rem'}" [scrollable]="true"
+        scrollHeight="70vh" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20, 50]"
+        [globalFilterFields]="['nombre', 'telefono', 'email']">
+        <ng-template #caption>
+            <div class="tabla-filtros">
+                <input pInputText type="text" placeholder="Buscar por nombre, teléfono o email"
+                    (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+                <p-select [options]="estados" placeholder="Filtrar por estado" [showClear]="true"
+                    (onChange)="dt.filter($event.value, 'estado', 'equals')" appendTo="body"></p-select>
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th pSortableColumn="estado">Estado <p-sortIcon field="estado"></p-sortIcon></th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-cliente>
+            <tr>
+                <td data-label="Nombre">{{ cliente.nombre }}</td>
+                <td data-label="Teléfono">
+                    @if (cliente.telefono) {
+                        {{ cliente.telefono }}
+                    } @else {
+                        <span class="empty-cell">—</span>
+                    }
+                </td>
+                <td data-label="Email">
+                    @if (cliente.email) {
+                        {{ cliente.email }}
+                    } @else {
+                        <span class="empty-cell">—</span>
+                    }
+                </td>
+                <td data-label="Estado">{{ cliente.estado }}</td>
+                <td data-label="Acciones" class="celda-acciones">
+                    <p-button icon="pi pi-pencil" pTooltip="Editar Cliente" (click)="editarCliente(cliente)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template #emptymessage>
+            <tr>
+                <td colspan="5">No se encontraron clientes.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</app-template>
+<app-gestion-cliente [(visible)]="dialogVisible" [(clienteSeleccionado)]="clienteSeleccionado"></app-gestion-cliente>

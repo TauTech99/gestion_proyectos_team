@@ -1,0 +1,68 @@
+:host {
+    display: block;
+}
+
+.proyecto-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 1rem 1.25rem;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 1.25rem;
+}
+
+.proyecto-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 8rem;
+}
+
+.field-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.field-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.field-value-muted {
+    color: var(--text-muted);
+    font-style: italic;
+    font-weight: 500;
+}
+
+.page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#tabla {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.tabla-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.tabla-filtros input {
+    min-width: 16rem;
+    flex: 1 1 16rem;
+}

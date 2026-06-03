@@ -1,0 +1,76 @@
+<app-template [titulo]="'Dashboard'">
+
+    @if (cargando()) {
+        <section class="dashboard-loading">
+            <p-progressSpinner styleClass="dashboard-spinner" strokeWidth="4" />
+            <p class="loading-text">Cargando estadísticas...</p>
+        </section>
+    } @else if (error()) {
+        <section class="dashboard-error">
+            <span class="material-symbols-outlined error-icon">error</span>
+            <h2 class="error-title">No se pudieron cargar las estadísticas</h2>
+            <p class="error-text">Verificá que el servidor esté disponible y reintentá.</p>
+            <p-button icon="pi pi-refresh" label="Reintentar" (click)="cargarEstadisticas()"></p-button>
+        </section>
+    } @else if (estadisticas(); as e) {
+
+        <section class="kpi-grid">
+            <article class="kpi-card">
+                <span class="material-symbols-outlined kpi-icon">folder</span>
+                <div class="kpi-content">
+                    <span class="kpi-label">Proyectos</span>
+                    <span class="kpi-value">{{ e.totalProyectos }}</span>
+                </div>
+            </article>
+            <article class="kpi-card">
+                <span class="material-symbols-outlined kpi-icon">checklist</span>
+                <div class="kpi-content">
+                    <span class="kpi-label">Tareas</span>
+                    <span class="kpi-value">{{ e.totalTareas }}</span>
+                </div>
+            </article>
+            <article class="kpi-card">
+                <span class="material-symbols-outlined kpi-icon">groups</span>
+                <div class="kpi-content">
+                    <span class="kpi-label">Clientes</span>
+                    <span class="kpi-value">{{ e.totalClientes }}</span>
+                </div>
+            </article>
+            <article class="kpi-card kpi-card-highlight">
+                <span class="material-symbols-outlined kpi-icon">trending_up</span>
+                <div class="kpi-content">
+                    <span class="kpi-label">Proyectos activos</span>
+                    <span class="kpi-value">{{ e.proyectosActivos }}</span>
+                </div>
+            </article>
+        </section>
+
+        <section class="charts-grid">
+            <article class="chart-card">
+                <h3 class="chart-title">Proyectos por estado</h3>
+                <div class="chart-container">
+                    <p-chart type="doughnut" [data]="configProyectosPorEstado()" [options]="opcionesDoughnut" />
+                </div>
+            </article>
+            <article class="chart-card">
+                <h3 class="chart-title">Tareas por estado</h3>
+                <div class="chart-container">
+                    <p-chart type="doughnut" [data]="configTareasPorEstado()" [options]="opcionesDoughnut" />
+                </div>
+            </article>
+        </section>
+
+        <section class="chart-card chart-card-full">
+            <h3 class="chart-title">Proyectos por cliente</h3>
+            @if (configProyectosPorCliente(); as configClientes) {
+                <div class="chart-container chart-container-tall">
+                    <p-chart type="bar" [data]="configClientes" [options]="opcionesBarrasHorizontal" />
+                </div>
+            } @else {
+                <p class="chart-empty">No hay proyectos asignados a clientes.</p>
+            }
+        </section>
+
+    }
+
+</app-template>

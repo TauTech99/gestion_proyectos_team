@@ -1,0 +1,36 @@
+<div class="login-bg">
+    <div class="login-card">
+        <div class="login-brand">
+            <img class="brand-logo" src="logo.png" alt="Gestión de Proyectos" />
+            <h1 class="brand-title">Gestión de Proyectos</h1>
+            <p class="brand-subtitle">Iniciá sesión para continuar</p>
+        </div>
+
+        <form [formGroup]="form" class="login-form" (ngSubmit)="iniciarSesion()">
+            <label class="form-field">
+                <span class="form-label">Usuario</span>
+                <input pInputText
+                       id="nombre"
+                       type="text"
+                       placeholder="Nombre de usuario"
+                       formControlName="nombre"
+                       autocomplete="username" />
+            </label>
+
+            <label class="form-field">
+                <span class="form-label">Contraseña</span>
+                <p-password id="clave"
+                            formControlName="clave"
+                            [feedback]="false"
+                            [toggleMask]="true"
+                            autocomplete="current-password"
+                            placeholder="Clave de acceso" />
+            </label>
+
+            <p-button label="Iniciar sesión"
+                      type="submit"
+                      icon="pi pi-sign-in"
+                      styleClass="login-submit" />
+        </form>
+    </div>
+</div>
