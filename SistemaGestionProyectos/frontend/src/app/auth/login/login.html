@@ -1,0 +1,9 @@
+<form [formGroup]="form">
+    <div id="main">
+        <h2 id="header">Sistema de gestión de proyectos</h2>
+        <input pInputText id="nombre" type="text" placeholder="Nombre de usuario" formControlName="nombre" />
+        <p-password id="clave" formControlName="clave" [feedback]="false" autocomplete="off"
+            placeholder="Clave de acceso" />
+        <p-button label="Iniciar sesión" (click)="login()" />
+    </div>
+</form>

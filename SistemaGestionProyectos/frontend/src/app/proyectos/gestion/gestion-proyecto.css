@@ -1,0 +1,13 @@
+#contenedor-formulario {
+    display: flex;
+    flex-direction: column;
+}
+
+#estado, #nombre, #cliente, #boton-gestionar-clientes, #fecha {
+    margin-bottom: 1rem;
+}
+
+
+#guardar {
+    align-self: center;
+}

@@ -1,0 +1,26 @@
+#tabla {
+    margin-top: 1rem;
+}
+
+.resumen {
+    font-size: 1.3rem;
+    background-color: azure;
+    border-radius: 15px;
+    width: fit-content;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+#datos-basicos {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    background-color: lightgoldenrodyellow;
+    border-radius: 15px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}

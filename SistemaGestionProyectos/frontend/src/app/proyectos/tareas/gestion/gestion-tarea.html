@@ -1,0 +1,18 @@
+<p-dialog [header]="header()" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }" [visible]="visible()"
+    (onHide)="cerrarDialog()">
+
+    <form [formGroup]="form">
+        <div id="contenedor-formulario">
+
+            <input pInputText type="text" id="descripcion" placeholder="Descripción" formControlName="descripcion" />
+
+            @if (tareaSeleccionada()) {
+            <p-select id="estado" formControlName="estado" [options]="estados()" placeholder="Estado" appendTo="body" />
+            }
+
+        </div>
+    </form>
+
+    <button pButton label="Guardar" (click)="guardarTarea()"></button>
+
+</p-dialog>

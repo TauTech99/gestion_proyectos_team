@@ -1,0 +1,80 @@
+<app-template>
+    <p-button id="boton-crear-proyecto" icon="pi pi-plus" label="Crear Proyecto" (click)="crearProyecto()"></p-button>
+    <div style="display:flex; gap:1rem; margin:1rem 0;">
+        <input pInputText placeholder="Buscar por nombre" #nombreInput (input)="buscarPorNombre(nombreInput.value)">
+
+        <select #estadoSelect (change)="buscarPorEstado(estadoSelect.value)">
+            <option value="" >
+                Todos los estados
+            </option>
+
+            <option value="ACTIVO" class="text-black">
+                ACTIVO
+            </option>
+
+            <option value="FINALIZADO" class="text-black">
+                FINALIZADO
+            </option>
+
+            <option value="BAJA" class="text-black" >
+                BAJA
+            </option>
+
+        </select>
+
+    </div>
+    <p-table id="tabla" [value]="proyectos()" [tableStyle]="{ 'min-width': '50rem'}" [scrollable]="true"
+        scrollHeight="70vh" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20,50]">
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="nombre">
+                    Nombre
+                    <p-sortIcon field="nombre"></p-sortIcon>
+                </th>
+                <th>Cliente</th>
+                <th pSortableColumn="estado">
+                    Estado
+                    <p-sortIcon field="estado"></p-sortIcon>
+                </th>
+                <th pSortableColumn="fechaFinalizacionObjetivo">
+                    Fecha objetivo
+                    <p-sortIcon field="fechaFinalizacionObjetivo"></p-sortIcon>
+                </th>
+                <th>Días restantes</th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-proyecto>
+            <tr>
+                <td>{{ proyecto.nombre }}</td>
+                <td>{{ proyecto.cliente? proyecto.cliente.nombre: '' }}</td>
+                <td>{{ proyecto.estado }}</td>
+                <td>{{ proyecto.fechaFinalizacionObjetivo || "Indefinida"}}</td>
+                <td>
+                    @if(diasRestantes(proyecto.fechaFinalizacionObjetivo) !== null){
+                        @if(diasRestantes(proyecto.fechaFinalizacionObjetivo)! >= 0){
+                            Quedan {{ diasRestantes(proyecto.fechaFinalizacionObjetivo) }} días
+                        } @else {
+                            Retrasado {{ diasRestantes(proyecto.fechaFinalizacionObjetivo)! * -1 }} días
+                        } 
+                    } @else {
+                            No definido
+                    }
+                </td>
+                <td>
+                    <p-button id="boton-gestionar-tareas" icon="pi pi-list" pTooltip="Gestionar Tareas"
+                        (click)="gestionarTareas(proyecto)"></p-button>
+                    <p-button icon="pi pi-pencil" pTooltip="Editar Proyecto"
+                        (click)="editarProyecto(proyecto)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template #emptymessage>
+            <tr>
+                <td colspan="4">No se encontraron proyectos.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</app-template>
+<app-gestion-proyecto [(visible)]="dialogVisible"
+    [(proyectoSeleccionado)]=" proyectoSeleccionado"></app-gestion-proyecto>

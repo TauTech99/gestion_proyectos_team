@@ -1,0 +1,12 @@
+#contenedor-formulario {
+    display: flex;
+    flex-direction: column;
+}
+
+#nombre {
+    margin-bottom: 1rem;
+}
+
+#estado {
+    margin-bottom: 1rem;
+}
