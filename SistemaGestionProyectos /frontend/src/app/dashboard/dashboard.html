@@ -1,0 +1,95 @@
+<app-template>
+    <div id="cabecera-dashboard">
+        <h2 id="titulo">Dashboard</h2>
+        <p-button
+            icon="pi pi-download"
+            label="Exportar reporte"
+            severity="secondary"
+            [loading]="exportando()"
+            (click)="exportarCSV()">
+        </p-button>
+    </div>
+
+    @if (estadisticas()) {
+        <!-- Tarjetas de resumen -->
+        <div id="tarjetas">
+            <div class="tarjeta">
+                <span class="numero">{{ estadisticas()!.totalProyectos }}</span>
+                <span class="label">Total Proyectos</span>
+            </div>
+            <div class="tarjeta activo">
+                <span class="numero">{{ estadisticas()!.proyectosActivos }}</span>
+                <span class="label">Proyectos Activos</span>
+            </div>
+            <div class="tarjeta finalizado">
+                <span class="numero">{{ estadisticas()!.proyectosFinalizados }}</span>
+                <span class="label">Proyectos Finalizados</span>
+            </div>
+            <div class="tarjeta pendiente">
+                <span class="numero">{{ estadisticas()!.tareasPendientes }}</span>
+                <span class="label">Tareas Pendientes</span>
+            </div>
+            <div class="tarjeta activo">
+                <span class="numero">{{ estadisticas()!.clientesActivos }}</span>
+                <span class="label">Clientes Activos</span>
+            </div>
+            <div class="tarjeta">
+                <span class="numero">{{ estadisticas()!.totalClientes }}</span>
+                <span class="label">Total Clientes</span>
+            </div>
+        </div>
+
+        <div id="segunda-fila">
+            <!-- Tabla proyectos por cliente -->
+            <div id="tabla-clientes">
+                <h3 class="subtitulo">Proyectos por cliente</h3>
+                <p-table [value]="estadisticas()!.totalProyectosPorCliente">
+                    <ng-template #header>
+                        <tr>
+                            <th>Cliente</th>
+                            <th style="text-align:center;">Proyectos</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-item>
+                        <tr>
+                            <td>{{ item.cliente }}</td>
+                            <td style="text-align:center;"><strong>{{ item.cantidad }}</strong></td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #emptymessage>
+                        <tr>
+                            <td colspan="2" style="text-align:center; color:#999;">Sin datos</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+
+            <!-- Mini resumen tareas -->
+            <div id="resumen-tareas">
+                <h3 class="subtitulo">Resumen de tareas</h3>
+                <div class="mini-stat">
+                    <span class="mini-label">Total</span>
+                    <span class="mini-num">{{ estadisticas()!.totalTareas }}</span>
+                </div>
+                <div class="mini-stat pendiente-bg">
+                    <span class="mini-label">Pendientes</span>
+                    <span class="mini-num">{{ estadisticas()!.tareasPendientes }}</span>
+                </div>
+                <div class="mini-stat finalizado-bg">
+                    <span class="mini-label">Finalizadas</span>
+                    <span class="mini-num">{{ estadisticas()!.tareasFinalizadas }}</span>
+                </div>
+                <div class="mini-stat baja-bg">
+                    <span class="mini-label">Dadas de baja</span>
+                    <span class="mini-num">{{ estadisticas()!.tareasBaja }}</span>
+                </div>
+            </div>
+        </div>
+    } @else {
+        <div style="text-align:center; padding:3rem; color:#999;">
+            <i class="pi pi-spin pi-spinner" style="font-size:2rem;"></i>
+            <p>Cargando estadísticas...</p>
+        </div>
+    }
+
+</app-template>

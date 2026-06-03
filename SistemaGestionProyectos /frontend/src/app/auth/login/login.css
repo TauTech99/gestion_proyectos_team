@@ -1,0 +1,36 @@
+form {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    background: white;
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 400px;
+}
+
+#header {
+    text-align: center;
+    margin: 0 0 0.5rem 0;
+    color: #1e1e2e;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+input, p-password {
+    width: 100%;
+}
+
+p-button {
+    width: 100%;
+    margin-top: 0.3rem;
+}

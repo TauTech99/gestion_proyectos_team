@@ -1,0 +1,56 @@
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 2rem;
+    background: linear-gradient(90deg, #1e1e2e 0%, #2d2d44 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+#nombre-de-proyecto {
+    font-size: 1.15rem;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+#nav {
+    display: flex;
+    gap: 0.5rem;
+}
+
+#nav a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 0.45rem 1rem;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+    font-weight: 500;
+}
+
+#nav a:hover {
+    background-color: rgba(255,255,255,0.12);
+    color: white;
+}
+
+#nav a.active {
+    background-color: rgba(255,255,255,0.18);
+    color: white;
+}
+
+#content {
+    padding: 2rem 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+#link-inicio {
+    color: white;
+    text-decoration: none;
+}
+
+#link-inicio:hover {
+    opacity: 0.85;
+}

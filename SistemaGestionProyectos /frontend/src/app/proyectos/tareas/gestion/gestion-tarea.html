@@ -1,0 +1,18 @@
+<p-dialog [header]="header()" [modal]="true" [(visible)]="visible" [style]="{ width: '28rem' }"
+    (onHide)="cerrarDialog()">
+    <form [formGroup]="form">
+        <div id="contenedor-formulario">
+            <label for="descripcion" class="form-label">Descripción *</label>
+            <input pInputText type="text" id="descripcion" placeholder="Descripción de la tarea" formControlName="descripcion" />
+
+            @if (tareaSeleccionada()) {
+                <label class="form-label">Estado</label>
+                <p-select formControlName="estado" [options]="estados()" placeholder="Estado" appendTo="body" [style]="{ width: '100%' }" />
+            }
+        </div>
+    </form>
+    <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.5rem;">
+        <p-button label="Cancelar" severity="secondary" (click)="cerrarDialog()"></p-button>
+        <p-button label="Guardar" icon="pi pi-check" (click)="guardarTarea()"></p-button>
+    </div>
+</p-dialog>

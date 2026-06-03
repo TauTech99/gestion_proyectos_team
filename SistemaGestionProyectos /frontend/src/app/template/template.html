@@ -1,0 +1,13 @@
+<header id="header">
+    <h1 id="nombre-de-proyecto">
+        <a routerLink="/proyectos" id="link-inicio">Sistema de Gestión de Proyectos</a>
+    </h1>
+    <nav id="nav">
+        <a routerLink="/proyectos" routerLinkActive="active">Proyectos</a>
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+    </nav>
+    <p-button id="boton-cerrar-sesion" icon="pi pi-sign-out" label="Cerrar Sesión" (click)="cerrarSesion()"></p-button>
+</header>
+<div id="content">
+    <ng-content></ng-content>
+</div>

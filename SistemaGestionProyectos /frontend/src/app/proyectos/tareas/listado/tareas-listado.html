@@ -1,0 +1,72 @@
+<app-template>
+    <div id="cabecera">
+        <div>
+            <h2>{{ proyecto()?.nombre }}</h2>
+            @if (proyecto()?.cliente) {
+                <span>Cliente: {{ proyecto()?.cliente }}</span>
+                <span> | </span>
+            }
+            <span>Estado: {{ proyecto()?.estado }}</span>
+        </div>
+        <p-button icon="pi pi-plus" label="Agregar Tarea" (click)="crearTarea()"></p-button>
+    </div>
+
+    <div id="panel-tareas">
+
+        <div class="columna pendiente">
+            <h3>🕐 Pendientes ({{ tareasPendientes().length }})</h3>
+            @for (tarea of tareasPendientes(); track tarea.id) {
+                <div class="tarjeta">
+                    <span>{{ tarea.descripcion }}</span>
+                    <div class="tarjeta-acciones">
+                        <p-button icon="pi pi-pencil" [text]="true" size="small" pTooltip="Editar" (click)="editarTarea(tarea)"></p-button>
+                        <p-button icon="pi pi-trash" [text]="true" size="small" severity="danger" pTooltip="Dar de baja" (click)="eliminarTarea(tarea)"></p-button>
+                    </div>
+                </div>
+            }
+            @empty {
+                <p class="vacio">Sin tareas pendientes</p>
+            }
+        </div>
+
+        <div class="columna finalizada">
+            <h3>✅ Finalizadas ({{ tareasFinalizadas().length }})</h3>
+            @for (tarea of tareasFinalizadas(); track tarea.id) {
+                <div class="tarjeta">
+                    <span>{{ tarea.descripcion }}</span>
+                    <div class="tarjeta-acciones">
+                        <p-button icon="pi pi-pencil" [text]="true" size="small" pTooltip="Editar" (click)="editarTarea(tarea)"></p-button>
+                        <p-button icon="pi pi-trash" [text]="true" size="small" severity="danger" pTooltip="Dar de baja" (click)="eliminarTarea(tarea)"></p-button>
+                    </div>
+                </div>
+            }
+            @empty {
+                <p class="vacio">Sin tareas finalizadas</p>
+            }
+        </div>
+
+        <div class="columna baja">
+            <h3>🗃️ Baja ({{ tareasBaja().length }})</h3>
+            @for (tarea of tareasBaja(); track tarea.id) {
+                <div class="tarjeta">
+                    <span>{{ tarea.descripcion }}</span>
+                    <div class="tarjeta-acciones">
+                        <p-button icon="pi pi-pencil" [text]="true" size="small" pTooltip="Editar" (click)="editarTarea(tarea)"></p-button>
+                    </div>
+                </div>
+            }
+            @empty {
+                <p class="vacio">Sin tareas dadas de baja</p>
+            }
+        </div>
+
+    </div>
+</app-template>
+
+<p-confirmDialog />
+
+<app-gestion-tarea
+    [(visible)]="dialogVisible"
+    [(tareaSeleccionada)]="tareaSeleccionada"
+    [idProyecto]="idProyecto()">
+</app-gestion-tarea>

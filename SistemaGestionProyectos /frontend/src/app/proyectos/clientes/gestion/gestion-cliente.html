@@ -1,0 +1,18 @@
+<p-dialog [header]="header()" [modal]="true" [(visible)]="visible" [style]="{ width: '28rem' }"
+    (onHide)="cerrarDialog()">
+    <form [formGroup]="form">
+        <div id="contenedor-formulario">
+            <label for="nombre" class="form-label">Nombre del cliente *</label>
+            <input pInputText type="text" id="nombre" placeholder="Ej: Empresa ABC" formControlName="nombre" />
+
+            @if (clienteSeleccionado()) {
+                <label class="form-label">Estado</label>
+                <p-select id="estado" formControlName="estado" [options]="estados()" placeholder="Estado" appendTo="body" [style]="{ width: '100%' }" />
+            }
+        </div>
+    </form>
+    <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.5rem;">
+        <p-button label="Cancelar" severity="secondary" (click)="cerrarDialog()"></p-button>
+        <p-button label="Guardar" icon="pi pi-check" (click)="guardarCliente()"></p-button>
+    </div>
+</p-dialog>

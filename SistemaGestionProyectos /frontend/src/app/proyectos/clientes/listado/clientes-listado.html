@@ -1,0 +1,31 @@
+<p-dialog header="Gestión de Clientes" [modal]="true" [(visible)]="visible" [style]="{ width: '55rem' }">
+    <div style="margin-bottom: 1rem;">
+        <p-button icon="pi pi-plus" label="Crear Cliente" (click)="crearCliente()"></p-button>
+    </div>
+    <p-table [value]="clientes()" [scrollable]="true" scrollHeight="400px">
+        <ng-template #header>
+            <tr>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th style="width: 100px;">Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-cliente>
+            <tr>
+                <td>{{ cliente.nombre }}</td>
+                <td>
+                    <span class="badge badge-{{ cliente.estado | lowercase }}">{{ cliente.estado }}</span>
+                </td>
+                <td>
+                    <p-button icon="pi pi-pencil" pTooltip="Editar Cliente" severity="secondary" size="small" (click)="editarCliente(cliente)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template #emptymessage>
+            <tr>
+                <td colspan="3" style="text-align:center; color:#999; padding: 1.5rem;">No se encontraron clientes.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>
+<app-gestion-cliente [(visible)]="dialogVisible" [(clienteSeleccionado)]="clienteSeleccionado"></app-gestion-cliente>

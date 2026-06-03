@@ -1,0 +1,84 @@
+#cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+#cabecera h2 {
+    margin: 0 0 0.3rem 0;
+    color: #1e1e2e;
+    font-size: 1.4rem;
+}
+
+#cabecera span {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+#panel-tareas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+}
+
+.columna {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1rem;
+    min-height: 300px;
+    border-top: 3px solid #e5e7eb;
+}
+
+.columna.pendiente { border-top-color: #f59e0b; }
+.columna.finalizada { border-top-color: #10b981; }
+.columna.baja { border-top-color: #9ca3af; }
+
+.columna h3 {
+    margin: 0 0 1rem 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.columna.pendiente h3 { color: #b45309; }
+.columna.finalizada h3 { color: #065f46; }
+.columna.baja h3 { color: #6b7280; }
+
+.tarjeta {
+    background: white;
+    border-radius: 8px;
+    padding: 0.75rem 0.9rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    transition: box-shadow 0.15s;
+}
+
+.tarjeta:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+
+.tarjeta span {
+    font-size: 0.88rem;
+    color: #374151;
+    flex: 1;
+    margin-right: 0.5rem;
+}
+
+.vacio {
+    color: #d1d5db;
+    font-size: 0.85rem;
+    text-align: center;
+    margin-top: 2rem;
+    font-style: italic;
+}
+
+.tarjeta-acciones {
+    display: flex;
+    gap: 0.1rem;
+    flex-shrink: 0;
+}
