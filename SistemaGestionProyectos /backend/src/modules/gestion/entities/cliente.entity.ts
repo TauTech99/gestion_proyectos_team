@@ -11,10 +11,19 @@ export class Cliente {
     @Column()
     nombre!: string;
 
-    @Column({ type: 'enum', enum: EstadosClientesEnum })
-    estado!: EstadosClientesEnum
+    @Column({ unique: true }) // Para que el CUIT no se pueda repetir
+    cuit!: string;
+
+    @Column()
+    email!: string;
+
+    @Column({ nullable: true }) // El teléfono es opcional
+    telefono!: string;
+
+    @Column({ type: 'enum', enum: EstadosClientesEnum, default: EstadosClientesEnum.ACTIVO }) 
+    estado!: EstadosClientesEnum;
 
     @OneToMany(() => Proyecto, (proyecto) => proyecto.cliente)
-    proyectos!: Proyecto[]
+    proyectos!: Proyecto[];
 
 }
