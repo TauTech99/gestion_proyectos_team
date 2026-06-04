@@ -1,0 +1,35 @@
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { EstadosClientesEnum } from "../enums/estados-clientes.enum";
+import { Proyecto } from "./proyecto.entity";
+
+@Entity({ name: "clientes" })
+export class Cliente {
+
+    @PrimaryGeneratedColumn()
+    id!: number;
+
+    @Column()
+    nombre!: string;
+
+    @Column({ unique: true }) // Para que el CUIT no se pueda repetir
+    cuit!: string;
+
+    @Column()
+    email!: string;
+
+    @Column({ nullable: true }) // El teléfono es opcional
+    telefono!: string;
+
+    @Column({ type: 'enum', enum: EstadosClientesEnum, default: EstadosClientesEnum.ACTIVO }) 
+    estado!: EstadosClientesEnum;
+
+    @Column({ nullable: true })
+    telefono?: string;
+
+    @Column({ nullable: true })
+    email?: string;
+
+    @OneToMany(() => Proyecto, (proyecto) => proyecto.cliente)
+    proyectos!: Proyecto[];
+
+}

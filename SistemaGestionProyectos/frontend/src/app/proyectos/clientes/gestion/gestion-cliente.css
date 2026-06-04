@@ -1,0 +1,25 @@
+#contenedor-formulario{
+    display: flex;
+    flex-direction: column;
+}
+
+#nombre{
+    margin-bottom: 1rem;
+}
+
+#telefono{
+    margin-bottom: 1rem;
+}
+
+#email{
+    margin-bottom: 0.25rem;
+}
+
+.email-error{
+    color: var(--danger);
+    margin-bottom: 1rem;
+}
+
+#estado{
+    margin-bottom: 1rem;
+}

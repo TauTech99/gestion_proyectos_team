@@ -1,0 +1,5 @@
+npm install pm2 -g
+
+https://nginx.org/en/download.html
+
+choco install mkcert

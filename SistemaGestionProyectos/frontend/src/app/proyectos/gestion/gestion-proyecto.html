@@ -1,0 +1,40 @@
+<p-dialog [header]="header()" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }"
+    (onHide)="cerrarDialog()">
+
+    <form [formGroup]="form">
+        <div id="contenedor-formulario">
+
+            <input pInputText type="text" id="nombre" placeholder="Nombre" formControlName="nombre" />
+
+            <ng-select
+                formControlName="cliente"
+                [items]="clientes()"
+                bindLabel="nombre"
+                placeholder="Cliente"
+                [clearable]="true"
+            />
+
+            <button id="boton-gestionar-clientes" pButton label="Gestionar Clientes" (click)="gestionarClientes()"
+                severity="secondary"></button>
+
+            <p-datepicker id="fecha-fin" formControlName="fechaFin" placeholder="Fecha de finalización"
+                dateFormat="dd/mm/yy" [showButtonBar]="true" [showIcon]="true" appendTo="body" />
+
+            @if (form.controls['fechaFin'].touched && form.controls['fechaFin'].errors?.['required']) {
+            <small class="fecha-error">La fecha de finalización es obligatoria si el estado es FINALIZADO.</small>
+            }
+
+            @if (fechaFinEsPasada()) {
+            <small class="fecha-warning">La fecha seleccionada es anterior a hoy.</small>
+            }
+
+            @if (proyectoSeleccionado()) {
+            <p-select id="estado" formControlName="estado" [options]="estados()" placeholder="Estado" appendTo="body" />
+            }
+
+            <button pButton id="guardar" label="Guardar" (click)="guardarProyecto()"></button>
+
+        </div>
+    </form>
+</p-dialog>
+<app-clientes-listado [(visible)]="dialogClientesVisible"></app-clientes-listado>

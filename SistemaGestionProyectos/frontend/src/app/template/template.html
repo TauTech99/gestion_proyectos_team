@@ -1,0 +1,70 @@
+<div class="layout" [class.sidebar-open]="sidebarAbierto()">
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img class="brand-logo" src="logo.png" alt="Gestión de Proyectos" />
+            <span class="brand-text">Gestión de Proyectos</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a routerLink="/dashboard"
+               routerLinkActive="active"
+               (click)="cerrarSidebar()"
+               class="nav-item">
+                <span class="material-symbols-outlined">space_dashboard</span>
+                <span class="nav-label">Dashboard</span>
+            </a>
+            <a routerLink="/proyectos"
+               routerLinkActive="active"
+               (click)="cerrarSidebar()"
+               class="nav-item">
+                <span class="material-symbols-outlined">folder_open</span>
+                <span class="nav-label">Proyectos</span>
+            </a>
+            <a routerLink="/clientes"
+               routerLinkActive="active"
+               (click)="cerrarSidebar()"
+               class="nav-item">
+                <span class="material-symbols-outlined">groups</span>
+                <span class="nav-label">Clientes</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <span class="sidebar-version">v1.0</span>
+        </div>
+    </aside>
+
+    <button class="sidebar-backdrop"
+            type="button"
+            (click)="cerrarSidebar()"
+            aria-label="Cerrar menú"></button>
+
+    <div class="content-wrapper">
+        <header class="topbar">
+            <button class="topbar-toggle"
+                    type="button"
+                    (click)="toggleSidebar()"
+                    aria-label="Abrir menú">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+
+            <h1 class="topbar-title">{{ titulo() }}</h1>
+
+            <div class="topbar-actions">
+                <button class="topbar-action"
+                        type="button"
+                        (click)="cerrarSesion()"
+                        aria-label="Cerrar sesión">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span class="topbar-action-label">Cerrar sesión</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="content">
+            <ng-content></ng-content>
+        </main>
+    </div>
+
+</div>

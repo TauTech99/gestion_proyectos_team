@@ -1,0 +1,59 @@
+<app-template [titulo]="'Proyectos'">
+    <div class="page-actions">
+        <p-button icon="pi pi-download" label="Exportar CSV" severity="secondary" (click)="exportar(dt)"></p-button>
+        <p-button id="boton-crear-proyecto" icon="pi pi-plus" label="Crear Proyecto" (click)="crearProyecto()"></p-button>
+    </div>
+    <p-table #dt id="tabla" [value]="proyectos()" [tableStyle]="{ 'min-width': '50rem'}" [scrollable]="true"
+        scrollHeight="70vh" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20, 50]"
+        [globalFilterFields]="['nombre', 'cliente.nombre']">
+        <ng-template #caption>
+            <div class="tabla-filtros">
+                <input pInputText type="text" placeholder="Buscar por nombre o cliente"
+                    (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+                <p-select [options]="estados" placeholder="Filtrar por estado" [showClear]="true"
+                    (onChange)="dt.filter($event.value, 'estado', 'equals')" appendTo="body"></p-select>
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+                <th>Cliente</th>
+                <th pSortableColumn="estado">Estado <p-sortIcon field="estado"></p-sortIcon></th>
+                <th pSortableColumn="fechaFin">Fecha fin <p-sortIcon field="fechaFin"></p-sortIcon></th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-proyecto>
+            <tr>
+                <td data-label="Nombre">{{ proyecto.nombre }}</td>
+                <td data-label="Cliente">
+                    @if (proyecto.cliente) {
+                        {{ proyecto.cliente.nombre }}
+                    } @else {
+                        <p-tag value="Interno" severity="info"></p-tag>
+                    }
+                </td>
+                <td data-label="Estado">{{ proyecto.estado }}</td>
+                <td data-label="Fecha fin">
+                    @if (proyecto.fechaFin) {
+                        {{ proyecto.fechaFin | date:'dd/MM/yyyy':'UTC' }}
+                    } @else {
+                        <span class="empty-cell">Sin fecha definida</span>
+                    }
+                </td>
+                <td data-label="Acciones" class="celda-acciones">
+                    <p-button id="boton-gestionar-tareas" icon="pi pi-list" pTooltip="Gestionar Tareas"
+                        (click)="gestionarTareas(proyecto)"></p-button>
+                    <p-button icon="pi pi-pencil" pTooltip="Editar Proyecto"
+                        (click)="editarProyecto(proyecto)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template #emptymessage>
+            <tr>
+                <td colspan="5">No se encontraron proyectos.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</app-template>
+<app-gestion-proyecto [(visible)]="dialogVisible" [(proyectoSeleccionado)]="proyectoSeleccionado"></app-gestion-proyecto>
