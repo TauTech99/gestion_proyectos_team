@@ -18,10 +18,6 @@ export class ClientesService {
     ) { }
 
     async crearCliente(dto: CreateClienteDto): Promise<{ id: number }> {
-        const existeCuit = await this.repository.findOneBy({ cuit: dto.cuit });
-        if (existeCuit) {
-            throw new BadRequestException('Ya existe un cliente registrado con ese CUIT');
-        }
 
         const cliente: Cliente = this.repository.create(dto);
         cliente.estado = EstadosClientesEnum.ACTIVO;
