@@ -11,16 +11,20 @@ export class Cliente {
     @Column()
     nombre!: string;
 
-    @Column({ type: 'enum', enum: EstadosClientesEnum })
-    estado!: EstadosClientesEnum
+    @Column({ nullable: true })
+    email?: string;
 
     @Column({ nullable: true })
     telefono?: string;
 
-    @Column({ nullable: true })
-    email?: string;
+    @Column({
+        type: 'enum',
+        enum: EstadosClientesEnum,
+        default: EstadosClientesEnum.ACTIVO
+    })
+    estado!: EstadosClientesEnum;
 
     @OneToMany(() => Proyecto, (proyecto) => proyecto.cliente)
-    proyectos!: Proyecto[]
+    proyectos!: Proyecto[];
 
 }

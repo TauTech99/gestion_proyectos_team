@@ -13,6 +13,7 @@ import { ClientesService } from "./services/clientes.service";
 import { ProyectosService } from "./services/proyectos.service";
 import { EstadisticasService } from "./services/estadisticas.service";
 
+
 @Module({
     controllers: [ClientesController, ProyectosController, TareasController, EstadisticasController],
     providers: [TareasService, ClientesService, ProyectosService, EstadisticasService],

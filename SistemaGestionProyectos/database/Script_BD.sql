@@ -36,6 +36,15 @@ CREATE TABLE tareas (
         REFERENCES proyectos (id)
 );
 
+CREATE TABLE historial_cambios (
+    id SERIAL PRIMARY KEY,
+    entidad TEXT NOT NULL,
+    id_registro INT NOT NULL,
+    accion TEXT NOT NULL,
+    usuario_nombre TEXT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 insert into usuarios (nombre, clave, estado) values ('usuario', crypt('clave', gen_salt('bf', 10)), 'ACTIVO');
@@ -46,3 +55,4 @@ ALTER TABLE clientes ADD COLUMN IF NOT EXISTS email TEXT NULL;
 
 -- RF20: Fecha de finalización de proyecto
 ALTER TABLE proyectos ADD COLUMN IF NOT EXISTS fecha_fin DATE NULL;
+

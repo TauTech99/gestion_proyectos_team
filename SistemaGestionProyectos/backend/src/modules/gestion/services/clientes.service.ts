@@ -12,19 +12,26 @@ import { ProyectosService } from "./proyectos.service";
 @Injectable()
 export class ClientesService {
 
-    constructor(@InjectRepository(Cliente) private readonly repository: Repository<Cliente>,
-        @Inject(forwardRef(() => ProyectosService)) private readonly proyectosService: ProyectosService) { }
+    constructor(
+        @InjectRepository(Cliente) private readonly repository: Repository<Cliente>,
+        @Inject(forwardRef(() => ProyectosService)) private readonly proyectosService: ProyectosService
+    ) { }
 
     async crearCliente(dto: CreateClienteDto): Promise<{ id: number }> {
 
         const cliente: Cliente = this.repository.create(dto);
         cliente.estado = EstadosClientesEnum.ACTIVO;
         await this.repository.save(cliente);
+
+        await this.registrarHistorial(
+            cliente.id,
+            'INSERT'
+        );
+
         return { id: cliente.id };
     }
 
     async actualizarCliente(id: number, dto: UpdateClienteDto): Promise<void> {
-
         const cliente: Cliente | null = await this.repository.findOneBy({ id });
 
         if (!cliente) {
@@ -37,12 +44,18 @@ export class ClientesService {
             throw new BadRequestException('No se puede dar de baja un cliente con proyectos relacionados');
         }
 
+        console.log("DEBUG: Datos recibidos para actualizar:", dto);
+
         this.repository.merge(cliente, dto);
         await this.repository.save(cliente);
+
+        await this.registrarHistorial(
+            id,
+            'UPDATE'
+        );
     }
 
     async obtenerClientes(estado: EstadosClientesEnum): Promise<ListClienteDTO[]> {
-
         const whereCondition: FindOptionsWhere<ListClienteDTO> = {}
 
         if (estado){
@@ -67,8 +80,20 @@ export class ClientesService {
     }
 
     async existeClienteActivoPorId(id: number): Promise<boolean> {
-
         const existe: boolean = await this.repository.exists({ where: { id, estado: EstadosClientesEnum.ACTIVO } });
         return existe;
     }
+
+    private async registrarHistorial(
+        idRegistro: number,
+        accion: string
+    ): Promise<void> {
+        await this.repository.query(
+            `INSERT INTO historial_cambios
+            (entidad, id_registro, accion, usuario_nombre)
+            VALUES ($1, $2, $3, $4)`,
+            ['Cliente', idRegistro, accion, 'Sistema']
+        );
+    }
+
 }
