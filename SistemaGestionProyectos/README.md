@@ -48,12 +48,12 @@ Completar la columna **Integrante** con nombre y apellido (debe coincidir con la
 
 | RF | Funcionalidad adicional | Integrante | Alcance técnico |
 |----|------------------------|------------|-----------------|
-| **RF15** | Estadísticas globales | _[Nombre Apellido]_ | Backend: `GET /api/v1/estadisticas`. Frontend: dashboard con KPIs y gráficos (Chart.js + PrimeNG). |
-| **RF19** | Datos de contacto de clientes | _[Nombre Apellido]_ | Campos opcionales `telefono` y `email` en clientes (API + formulario + columnas en listado). |
-| **RF20** | Fecha de finalización de proyecto | _[Nombre Apellido]_ | Campo opcional `fechaFin`; validación si el estado es `FINALIZADO`; visualización en listados y detalle. |
-| **RF16** | Búsqueda avanzada | _[Nombre Apellido]_ | Filtrado, ordenamiento y paginación en tablas de proyectos, clientes y tareas (PrimeNG Table, 100 % frontend). |
-| **RF17** | Exportación a CSV | _[Nombre Apellido]_ | Descarga de datos visibles (tras filtros) en proyectos, clientes y tareas; helper `shared/csv-export.ts`. |
-| **RF18** | Panel visual de tareas (Kanban) | _[Nombre Apellido]_ | Vista `/proyectos/:id/tareas/kanban` con drag-and-drop entre columnas por estado (`@angular/cdk`). |
+| **RF15** | Estadísticas globales | _[Taoufik Saidi]_ | Backend: `GET /api/v1/estadisticas`. Frontend: dashboard con KPIs y gráficos (Chart.js + PrimeNG). |
+| **RF19** | Datos de contacto de clientes | _[Rubí Nohemí García Alarcón]_ | Campos opcionales `telefono` y `email` en clientes (API + formulario + columnas en listado). |
+| **RF20** | Fecha de finalización de proyecto | _[Elizabeth Laila Giribaldi Jatip]_ | Campo opcional `fechaFin`; validación si el estado es `FINALIZADO`; visualización en listados y detalle. |
+| **RF16** | Búsqueda avanzada | _[Valentina Angeletti]_ | Filtrado, ordenamiento y paginación en tablas de proyectos, clientes y tareas (PrimeNG Table, 100 % frontend). |
+| **RF17** | Exportación a CSV | _[Lamine Mechedou]_ | Descarga de datos visibles (tras filtros) en proyectos, clientes y tareas; helper `shared/csv-export.ts`. |
+| **RF18** | Panel visual de tareas (Kanban) | _[Mairene Villasmil]_ | Vista `/proyectos/:id/tareas/kanban` con drag-and-drop entre columnas por estado (`@angular/cdk`). |
 
 **Expansiones sugeridas no implementadas** (por complejidad): historial de cambios, configuración de roles, gestión de metas intermedias.
 

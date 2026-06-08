@@ -1,3 +1,7 @@
+# Environment (secrets stay local; use backend/.env.example)
+**/.env
+!.env.example
+
 node_modules
 dist
 **/dist
